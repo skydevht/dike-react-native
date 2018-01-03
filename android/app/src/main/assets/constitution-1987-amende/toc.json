@@ -1,0 +1,161 @@
+{
+  "name": "Constitution 1987 - amendée",
+  "sections": [
+    {
+      "name": "DE LA RÉPUBLIQUE D’HAÏTI : SON EMBLÈME – SES SYMBOLES",
+      "type": "TITRE I",
+      "order": 1,
+      "children": [
+        {
+          "name": "DE LA RÉPUBLIQUE D’HAÏTI",
+          "type": "CHAPITRE I",
+          "order": 2,
+          "contents": [
+            {
+              "name": "ARTICLE 1",
+              "order": 3,
+              "path": "text/t_1/a_1.md"
+            },
+            {
+              "name": "ARTICLE 1.1",
+              "order": 4,
+              "path": "text/t_1/a_1_1.md"
+            },
+            {
+              "name": "ARTICLE 2",
+              "order": 5,
+              "path": "text/t_1/a_2.md"
+            },
+            {
+              "name": "ARTICLE 3",
+              "order": 6,
+              "path": "text/t_1/a_3.md"
+            },
+            {
+              "name": "ARTICLE 4",
+              "order": 7,
+              "path": "text/t_1/a_4.md"
+            },
+            {
+              "name": "ARTICLE 5",
+              "order": 8,
+              "path": "text/t_1/a_5.md"
+            },
+            {
+              "name": "ARTICLE 6",
+              "order": 9,
+              "path": "text/t_1/a_6.md"
+            },
+            {
+              "name": "ARTICLE 7",
+              "order": 10,
+              "path": "text/t_1/a_7.md"
+            },
+            {
+              "name": "ARTICLE 7.1",
+              "order": 11,
+              "path": "text/t_1/a_7_1.md"
+            }
+          ]
+        },
+        {
+          "name": "DU TERRITOIRE DE LA RÉPUBLIQUE D’HAÏTI",
+          "type": "CHAPITRE II",
+          "order": 12,
+          "contents": [
+            {
+              "name": "ARTICLE 8",
+              "order": 13,
+              "path": "text/t_1/a_8.md"
+            },
+            {
+              "name": "ARTICLE 8.1",
+              "order": 14,
+              "path": "text/t_1/a_8_1.md"
+            },
+            {
+              "name": "ARTICLE 9",
+              "order": 15,
+              "path": "text/t_1/a_9.md"
+            },
+            {
+              "name": "ARTICLE 9.1",
+              "order": 16,
+              "path": "text/t_1/a_9_1.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DE LA NATIONALITÉ HAÏTIENNE",
+      "type": "TITRE II",
+      "order": 2
+    },
+    {
+      "name": "DU CITOYEN, DES DROITS et DEVOIRS FONDAMENTAUX",
+      "type": "TITRE III",
+      "order": 3
+    },
+    {
+      "name": "DES ÉTRANGERS",
+      "type": "TITRE IV",
+      "order": 4
+    },
+    {
+      "name": "DE LA SOUVERAINETÉ NATIONALE",
+      "type": "TITRE V",
+      "order": 5
+    },
+    {
+      "name": "DES INSTITUTIONS INDÉPENDANTES",
+      "type": "TITRE VI",
+      "order": 6
+    },
+    {
+      "name": "DES FINANCES PUBLIQUES",
+      "type": "TITRE VII",
+      "order": 7
+    },
+    {
+      "name": "DE LA FONCTION PUBLIQUE",
+      "type": "TITRE VIII",
+      "order": 8
+    },
+    {
+      "name": "DE L’ECONOMIE, DE L’AGRICULTURE et DE L’ENVIRONNEMENT",
+      "type": "TITRE IX",
+      "order": 9
+    },
+    {
+      "name": "DE LA FAMILLE",
+      "type": "TITRE X",
+      "order": 10
+    },
+    {
+      "name": "DE LA FORCE PUBLIQUE",
+      "type": "TITRE XI",
+      "order": 11
+    },
+    {
+      "name": "DISPOSITIONS GÉNÉRALES",
+      "type": "TITRE XII",
+      "order": 12
+    },
+    {
+      "name": "AMENDEMENTS A LA CONSTITUTION",
+      "type": "TITRE XIII",
+      "order": 13
+    },
+    {
+      "name": "DES DISPOSITIONS TRANSITOIRES",
+      "type": "TITRE XIV",
+      "order": 14
+    },
+    {
+      "name": "DISPOSITIONS FINALES",
+      "type": "TITRE XV",
+      "order": 15
+    }
+  ]
+}

@@ -1,0 +1,282 @@
+{
+  "name": "Code du travail",
+  "sections": [
+    {
+      "name": "",
+      "type": "DISPOSITIONS GÉNÉRALES",
+      "order": 1,
+      "contents": [
+        {
+          "name": "ARTICLE 1",
+          "order": 2,
+          "path": "text/gen/a1.md"
+        },
+        {
+          "name": "ARTICLE 2",
+          "order": 3,
+          "path": "text/gen/a2.md"
+        },
+        {
+          "name": "ARTICLE 3",
+          "order": 4,
+          "path": "text/gen/a3.md"
+        },
+        {
+          "name": "ARTICLE 4",
+          "order": 5,
+          "path": "text/gen/a4.md"
+        },
+        {
+          "name": "ARTICLE 5",
+          "order": 6,
+          "path": "text/gen/a5.md"
+        },
+        {
+          "name": "ARTICLE 6",
+          "order": 7,
+          "path": "text/gen/a6.md"
+        },
+        {
+          "name": "ARTICLE 7",
+          "order": 8,
+          "path": "text/gen/a7.md"
+        },
+        {
+          "name": "ARTICLE 8",
+          "order": 9,
+          "path": "text/gen/a8.md"
+        },
+        {
+          "name": "ARTICLE 9",
+          "order": 10,
+          "path": "text/gen/a9.md"
+        },
+        {
+          "name": "ARTICLE 10",
+          "order": 11,
+          "path": "text/gen/a10.md"
+        },
+        {
+          "name": "ARTICLE 11",
+          "order": 12,
+          "path": "text/gen/a11.md"
+        },
+        {
+          "name": "ARTICLE 12",
+          "order": 13,
+          "path": "text/gen/a12.md"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "DU CONTRAT DE TRAVAIL. DÉFINITIONS ET MODALITÉS DU CONTRAT DE TRAVAIL",
+      "order": 14,
+      "contents": [
+        {
+          "name": "ARTICLE 13",
+          "order": 15,
+          "path": "text/contrat/a13.md"
+        },
+        {
+          "name": "ARTICLE 14",
+          "order": 16,
+          "path": "text/contrat/a14.md"
+        }
+      ]
+    },
+    {
+      "name": "Du contrat individuel de travail",
+      "type": "Loi No 1",
+      "order": 17,
+      "sections": [
+        {
+          "name": "FORMES ET CONDITIONS DU CONTRAT INDIVIDUEL DE TRAVAIL",
+          "type": "CHAPITRE 1er",
+          "order": 18,
+          "contents": [
+            {
+              "name": "ARTICLE 15",
+              "order": 20,
+              "path": "text/l1/a15.md"
+            },
+            {
+              "name": "ARTICLE 16",
+              "order": 21,
+              "path": "text/l1/a16.md"
+            },
+            {
+              "name": "ARTICLE 17",
+              "order": 22,
+              "path": "text/l1/a17.md"
+            },
+            {
+              "name": "ARTICLE 18",
+              "order": 23,
+              "path": "text/l1/a18.md"
+            },
+            {
+              "name": "ARTICLE 19",
+              "order": 24,
+              "path": "text/l1/a19.md"
+            },
+            {
+              "name": "ARTICLE 20",
+              "order": 25,
+              "path": "text/l1/a20.md"
+            },
+            {
+              "name": "ARTICLE 21",
+              "order": 26,
+              "path": "text/l1/a21.md"
+            },
+            {
+              "name": "ARTICLE 22",
+              "order": 27,
+              "path": "text/l1/a22.md"
+            },
+            {
+              "name": "ARTICLE 23",
+              "order": 28,
+              "path": "text/l1/a23.md"
+            },
+            {
+              "name": "ARTICLE 24",
+              "order": 29,
+              "path": "text/l1/a24.md"
+            },
+            {
+              "name": "ARTICLE 25",
+              "order": 30,
+              "path": "text/l1/a25.md"
+            }
+          ]
+        },
+        {
+          "name": "DE LA SOUS-ENTREPRISE",
+          "type": "CHAPITRE II",
+          "order": 31,
+          "sections": [
+            {
+              "name": "ARTICLE 26",
+              "order": 32,
+              "path": "text/l1/a26.md"
+            },
+            {
+              "name": "ARTICLE 27",
+              "order": 33,
+              "path": "text/l1/a27.md"
+            },
+            {
+              "name": "ARTICLE 28",
+              "order": 34,
+              "path": "text/l1/a28.md"
+            },
+            {
+              "name": "ARTICLE 29",
+              "order": 35,
+              "path": "text/l1/a29.md"
+            }
+          ]
+        },
+        {
+          "name": "DES OBLIGATIONS DES CONTRACTANTS",
+          "type": "CHAPITRE III",
+          "order": 36,
+          "sections": [
+            {
+              "name": "ARTICLE 30",
+              "order": 37,
+              "path": "text/l1/a30.md"
+            },
+            {
+              "name": "ARTICLE 31",
+              "order": 38,
+              "path": "text/l1/a31.md"
+            }
+          ]
+        },
+        {
+          "name": "DE LA SUSPENSION TEMPORAIRE DU CONTRAT INDIVIDUEL DE TRAVAIL",
+          "type": "CHAPITRE IV",
+          "order": 38,
+          "sections": [
+            {
+              "name": "ARTICLE 32",
+              "order": 39,
+              "path": "text/l1/a32.md"
+            },
+            {
+              "name": "ARTICLE 33",
+              "order": 40,
+              "path": "text/l1/a33.md"
+            },
+            {
+              "name": "ARTICLE 34",
+              "order": 41,
+              "path": "text/l1/a34.md"
+            },
+            {
+              "name": "ARTICLE 35",
+              "order": 42,
+              "path": "text/l1/a35.md"
+            },
+            {
+              "name": "ARTICLE 36",
+              "order": 43,
+              "path": "text/l1/a36.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Du contrat collectif de travail",
+      "type": "Loi No 2",
+      "order": 1,
+      "contents": null
+    },
+    {
+      "name": "Du contrat d'apprentissage",
+      "type": "Loi No 3",
+      "order": 1,
+      "contents": null
+    },
+    {
+      "name": "Des conditions de travail",
+      "type": "Loi No 4",
+      "order": 1,
+      "contents": null
+    },
+    {
+      "name": "Des conflits du travail",
+      "type": "Loi No 5",
+      "order": 1,
+      "contents": null
+    },
+    {
+      "name": "Des syndicats",
+      "type": "Loi No 6",
+      "order": 1,
+      "contents": null
+    },
+    {
+      "name": "De la main-d'œuvre soumise à un régime spécial",
+      "type": "Loi No 7",
+      "order": 1,
+      "contents": null
+    },
+    {
+      "name": "Du contrôle des établissements de travail et de l'emploi",
+      "type": "Loi No 8",
+      "order": 1,
+      "contents": null
+    },
+    {
+      "name": "Des tribunaux du travail",
+      "type": "Loi No 9",
+      "order": 1,
+      "contents": null
+    }
+  ]
+}

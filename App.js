@@ -3,13 +3,17 @@ import {StyleSheet, Text, View, ToolbarAndroid} from 'react-native';
 import DocCard from "./app/components/DocCard";
 import {StackNavigator} from 'react-navigation';
 import HomeScreen from "./app/screens/HomeScreen";
+import DocScreen from "./app/screens/DocScreen";
 
 const App = StackNavigator({
-  home: {
+  Home: {
     screen: HomeScreen,
     navigationOptions: {
       headerTitle: 'Dike'
     }
+  },
+  DocDetails: {
+    screen: DocScreen
   }
 });
 

@@ -1,24 +1,26 @@
 import React from 'react';
-import {View, Image, Text, StyleSheet} from 'react-native';
+import {View, Image, Text, TouchableWithoutFeedback, StyleSheet} from 'react-native';
 import ResponsiveImageView from 'react-native-responsive-image-view';
 
 const img = "https://via.placeholder.com/320x180";
 
 
 const DocCard = props => (
-  <View style={styles.container}>
-    <ResponsiveImageView source={{uri: img}}
-                         aspectRatio={1.77}
-                         render={({getViewProps, getImageProps}) => (
-                           <View {...getViewProps()}>
-                             <Image {...getImageProps()} />
-                           </View>
-                         )}
-    />
-    <View>
-      <Text style={styles.title}>Code de la route</Text>
+  <TouchableWithoutFeedback onPress={props.onPress}>
+    <View style={styles.container}>
+      <ResponsiveImageView source={{uri: props.thumb}}
+                           aspectRatio={1.77}
+                           render={({getViewProps, getImageProps}) => (
+                             <View {...getViewProps()}>
+                               <Image {...getImageProps()} />
+                             </View>
+                           )}
+      />
+      <View>
+        <Text style={styles.title}>{props.title}</Text>
+      </View>
     </View>
-  </View>
+  </TouchableWithoutFeedback>
 );
 
 
