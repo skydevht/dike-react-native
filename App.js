@@ -4,6 +4,7 @@ import DocCard from "./app/components/DocCard";
 import {StackNavigator} from 'react-navigation';
 import HomeScreen from "./app/screens/HomeScreen";
 import DocScreen from "./app/screens/DocScreen";
+import SectionScreen from "./app/screens/SectionScreen";
 
 const App = StackNavigator({
   Home: {
@@ -14,6 +15,9 @@ const App = StackNavigator({
   },
   DocDetails: {
     screen: DocScreen
+  },
+  SectionDetails: {
+    screen: SectionScreen
   }
 });
 

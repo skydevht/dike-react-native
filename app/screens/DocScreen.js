@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Image, Text, StyleSheet, View} from "react-native";
+import {FlatList, Image, Text, StyleSheet, View, TouchableWithoutFeedback} from "react-native";
 import ResponsiveImageView from 'react-native-responsive-image-view';
 import Api from '../data/api';
 
@@ -25,11 +25,18 @@ export default class DocScreen extends React.Component {
     this.state = {toc: []}
   }
 
+  _viewSection = (section) => {
+    const navigation = this.props.navigation;
+    navigation.navigate('SectionDetails', {section});
+  }
+
   _renderItem = ({item}) => (
-    <View style={styles.cell}>
-      <Text style={styles.type}>{item.type}</Text>
-      <Text style={styles.name}>{item.name}</Text>
-    </View>
+    <TouchableWithoutFeedback onPress={() => this._viewSection(item)}>
+      <View style={styles.cell}>
+        <Text style={styles.type}>{item.type}</Text>
+        <Text style={styles.name}>{item.name}</Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 
   _renderHeader = () => {
@@ -72,7 +79,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff'
   },
-  cell : {
+  cell: {
     padding: 16,
     backgroundColor: '#fff'
   },

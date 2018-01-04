@@ -3439,6 +3439,14 @@ react-native-fs@^2.9.6:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
 
+react-native-markdown-view@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-native-markdown-view/-/react-native-markdown-view-1.1.4.tgz#390fdbe2ececa92505572efe1911ec2c7fe8bc13"
+  dependencies:
+    prop-types "^15.5.10"
+    react-native-tabular-grid-markdown-view "0.1.x"
+    simple-markdown "0.3.x"
+
 react-native-responsive-image-view@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-responsive-image-view/-/react-native-responsive-image-view-1.0.0.tgz#a3c39d62f8f2a9419a31f3c3937aa4a83d1b1f1c"
@@ -3446,6 +3454,12 @@ react-native-responsive-image-view@1.0.0:
 react-native-tab-view@^0.0.70:
   version "0.0.70"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-0.0.70.tgz#1dd2ded32acd0cb6bfef38d26e53675db733b37b"
+  dependencies:
+    prop-types "^15.5.10"
+
+react-native-tabular-grid-markdown-view@0.1.x:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-tabular-grid-markdown-view/-/react-native-tabular-grid-markdown-view-0.1.0.tgz#d5b3c291242373aa49ac60df43a017b39fc84338"
   dependencies:
     prop-types "^15.5.10"
 
@@ -3901,6 +3915,10 @@ shellwords@^0.1.0:
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+
+simple-markdown@0.3.x:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/simple-markdown/-/simple-markdown-0.3.1.tgz#de0d414301f87f1edfdcb8d18366c377545e42ed"
 
 simple-plist@^0.2.1:
   version "0.2.1"
