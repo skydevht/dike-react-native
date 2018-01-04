@@ -26,7 +26,10 @@ export default class DocScreen extends React.Component {
   }
 
   _renderItem = ({item}) => (
-    <Text style={styles.name}>{item.name}</Text>
+    <View style={styles.cell}>
+      <Text style={styles.type}>{item.type}</Text>
+      <Text style={styles.name}>{item.name}</Text>
+    </View>
   );
 
   _renderHeader = () => {
@@ -53,7 +56,7 @@ export default class DocScreen extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <FlatList data={this.state.toc}
                   renderItem={this._renderItem}
                   keyExtractor={item => item.type}
@@ -66,8 +69,19 @@ export default class DocScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff'
+  },
+  cell : {
+    padding: 16,
+    backgroundColor: '#fff'
+  },
+  type: {
+    fontSize: 14,
+    color: '#145c9e'
+  },
   name: {
     fontSize: 20,
-    margin: 16
+    color: 'rgba(0, 0, 0, .89)'
   }
 });
