@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Text, View} from "react-native";
+import {FlatList, Text, TouchableWithoutFeedback, View} from "react-native";
 
 const ARTICLE = 72;
 
@@ -10,7 +10,8 @@ export default class SectionScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    const section = props.navigation.state.params.section;
+    const {section, path} = props.navigation.state.params;
+    this.path = path;
     this.data = [];
     this.articles = [];
     this._processSections(section);
@@ -21,8 +22,6 @@ export default class SectionScreen extends React.Component {
     if (level === ARTICLE) {
       return {
         margin: 16,
-        fontSize: 16,
-        color: 'rgba(0, 0, 0, .89)'
       }
     } else {
       const style = {
@@ -43,7 +42,20 @@ export default class SectionScreen extends React.Component {
     }
   }
 
+  _viewArticle = item => {
+    const current = this.articles.findIndex(article => article.order === item.order);
+    this.props.navigation.navigate('Article', {articles : this.articles, current})
+  };
+
   _renderItem = ({item}) => {
+    if (item.level === ARTICLE)
+      return (
+        <TouchableWithoutFeedback onPress={() => this._viewArticle(item)}>
+          <View style={{padding: 16}}>
+            <Text style={{fontSize: 16, color: 'rgba(0, 0, 0, 0.89)'}}>{item.name}</Text>
+          </View>
+        </TouchableWithoutFeedback>
+      );
     return (
       <Text style={SectionScreen._getStyle(item.level)}>
         {item.name}
@@ -60,6 +72,7 @@ export default class SectionScreen extends React.Component {
       contents.forEach(content => {
         item = this._newSection(content.name, content.order, ARTICLE);
         this.data.push(item);
+        content.path = `${this.path}/${content.path}`;
         this.articles.push(content);
       });
       const children = section.children || [];

@@ -27,8 +27,9 @@ export default class DocScreen extends React.Component {
 
   _viewSection = (section) => {
     const navigation = this.props.navigation;
-    navigation.navigate('SectionDetails', {section});
-  }
+    const {path} = navigation.state.params.doc;
+    navigation.navigate('SectionDetails', {section, path});
+  };
 
   _renderItem = ({item}) => (
     <TouchableWithoutFeedback onPress={() => this._viewSection(item)}>

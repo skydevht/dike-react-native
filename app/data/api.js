@@ -1,4 +1,3 @@
-import Docs from './books.json';
 import RNFS from 'react-native-fs';
 
 const loadDocs = () => RNFS.readFileAssets('documents.json')
@@ -9,4 +8,6 @@ const loadTOC = path => {
     .then(data => new Promise(resolve => resolve(JSON.parse(data).sections)));
 };
 
-export default {loadDocs, loadTOC};
+const loadArticle = path => RNFS.readFileAssets(path);
+
+export default {loadDocs, loadTOC, loadArticle};

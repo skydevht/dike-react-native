@@ -17,6 +17,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "elasticlunr": "^0.9.5",
     "react": "16.0.0-beta.5",
     "react-native": "^0.49.5",
     "react-native-fs": "^2.9.6",
