@@ -23,6 +23,9 @@
     "react-native-fs": "^2.9.6",
     "react-native-markdown-view": "^1.1.4",
     "react-native-responsive-image-view": "1.0.0",
-    "react-navigation": "^1.0.0-beta.22"
+    "react-navigation": "^1.0.0-beta.22",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   }
 }

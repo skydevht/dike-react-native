@@ -1,13 +1,23 @@
 import React from 'react';
-import {StyleSheet, Text, View, ToolbarAndroid} from 'react-native';
-import DocCard from "./app/components/DocCard";
+import thunkMiddleware from 'redux-thunk';
+import {createStore, applyMiddleware} from 'redux';
+import {Provider, connect} from 'react-redux';
+import dike from './app/redux/reducers';
+import {loadData} from './app/redux/actions';
 import {StackNavigator} from 'react-navigation';
 import HomeScreen from "./app/screens/HomeScreen";
 import DocScreen from "./app/screens/DocScreen";
 import SectionScreen from "./app/screens/SectionScreen";
 import ArticleScreen from "./app/screens/ArticleScreen";
 
-const App = StackNavigator({
+const store = createStore(
+  dike,
+  applyMiddleware(
+    thunkMiddleware
+  )
+);
+
+const MyNavigator = StackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: {
@@ -20,20 +30,23 @@ const App = StackNavigator({
   SectionDetails: {
     screen: SectionScreen
   },
-  Article : {
-    screen : ArticleScreen
+  Article: {
+    screen: ArticleScreen
   }
 });
 
-export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#eee',
-  },
-  toolbar: {
-    height: 56,
-    backgroundColor: '#fff'
+class BasicApp extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(loadData());
   }
-});
+
+  render() {
+    return (<MyNavigator/>);
+  }
+}
+
+const App = connect()(BasicApp);
+
+export default (props) => (<Provider store={store}><App/></Provider>);
+
+
