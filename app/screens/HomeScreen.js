@@ -1,8 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {FlatList, StyleSheet, View} from "react-native";
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import {Button, FlatList, StyleSheet, TouchableNativeFeedback, View} from "react-native";
 import DocCard from "../components/DocCard";
 import Api from '../data/api';
+import SectionScreen from "./SectionScreen";
 
 const data = [
   {key: 'a'},
@@ -29,7 +31,22 @@ const DocsList = connect(mapStateToProps)(props => (
   </View>
 ));
 
+const SearchButton = connect()(props => (
+  <TouchableNativeFeedback
+    onPress={() => null}
+    background={TouchableNativeFeedback.SelectableBackground()}>
+    <View style={{marginRight: 4, padding: 12}}>
+      <Icon name="search" size={24}/>
+    </View>
+  </TouchableNativeFeedback>
+));
+
 export default class HomeScreen extends React.Component {
+  static navigationOptions = ({navigation}) => ({
+    headerTitle: 'Dike',
+    headerRight: <SearchButton/>
+  });
+
   constructor(props) {
     super(props);
     this.state = {docs: []};

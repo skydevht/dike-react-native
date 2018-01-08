@@ -20,9 +20,6 @@ const store = createStore(
 const MyNavigator = StackNavigator({
   Home: {
     screen: HomeScreen,
-    navigationOptions: {
-      headerTitle: 'Dike'
-    }
   },
   DocDetails: {
     screen: DocScreen
