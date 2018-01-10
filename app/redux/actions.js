@@ -13,6 +13,25 @@ function importData(docs, index) {
   }
 }
 
+function flattenSection(section, doc) {
+  const contents = section.contents || [];
+  let articles = contents.map(content => {
+    if (content.path.startsWith('text/'))
+      content.path = `${doc.path}/${content.path}`;
+    return Api.loadArticle(content.path).then(text =>
+      Promise.resolve({
+        id: `${doc.name}-${section.name}-${content.name}`,
+        doc: doc.name,
+        name: content.name,
+        text
+      }))
+  });
+  const children = section.children || [];
+  children.forEach(child => {
+    articles = articles.concat(flattenSection(child, doc));
+  });
+  return articles;
+}
 
 export function loadData() {
   return function (dispatch) {
@@ -25,24 +44,17 @@ export function loadData() {
         ))
       ).then(docs => {
         const idx = elasticlunr(function () {
-          this.addField('title');
-          this.addField('body');
+          this.addField('text');
           this.setRef('id');
         });
-        const doc1 = {
-          "id": 1,
-          "title": "Oracle released its latest database Oracle 12g",
-          "body": "Yestaday Oracle has released its new database Oracle 12g, this would make more money for this company and lead to a nice profit report of annual year."
-        };
-
-        const doc2 = {
-          "id": 2,
-          "title": "Oracle released its profit report of 2015",
-          "body": "As expected, Oracle released its profit report of 2015, during the good sales of database and hardware, Oracle's profit of 2015 reached 12.5 Billion."
-        };
-
-        idx.addDoc(doc1);
-        idx.addDoc(doc2);
+        docs.forEach(doc => {
+          const docName = doc.name;
+          doc.sections.forEach(section => {
+            Promise.all(flattenSection(section, doc)).then(articles => {
+              articles.forEach(art => idx.addDoc(art));
+            })
+          });
+        });
         dispatch(importData(docs, idx));
       }
     )
@@ -50,6 +62,7 @@ export function loadData() {
 }
 
 export const VIEW_DOC = 'view-doc';
+
 export function viewDoc(id) {
   return {
     type: VIEW_DOC,
