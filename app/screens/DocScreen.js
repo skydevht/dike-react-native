@@ -1,23 +1,14 @@
 import React from 'react';
 import {FlatList, Image, Text, StyleSheet, View, TouchableWithoutFeedback} from "react-native";
 import ResponsiveImageView from 'react-native-responsive-image-view';
-import Api from '../data/api';
+import {AppNavigator} from '../navigators/AppNavigator';
 
-const mock = [
-  {
-    key: 'a',
-    name: 'SUR LES DISPOSITIONS PRÉLIMINAIRES'
-  },
-  {
-    key: 'b',
-    name: 'SUR LES TRIBUNAUX DE POLICE'
-  },
-];
+import {connect} from "react-redux";
 
 
-export default class DocScreen extends React.Component {
+class DocScreen extends React.Component {
   static navigationOptions = ({navigation}) => ({
-    title: navigation.state.params.doc.name
+    title: navigation.state.params.title
   });
 
   constructor(props) {
@@ -26,9 +17,13 @@ export default class DocScreen extends React.Component {
   }
 
   _viewSection = (section) => {
-    const navigation = this.props.navigation;
-    const {path} = navigation.state.params.doc;
-    navigation.navigate('SectionDetails', {section, path});
+    if (this.props.doc) {
+      this.props.navigation.navigate('SectionDetails',
+        {
+          sectionId: `${section.type}-${section.order}`,
+          doc: this.props.doc.id,
+        });
+    }
   };
 
   _renderItem = ({item}) => (
@@ -41,31 +36,29 @@ export default class DocScreen extends React.Component {
   );
 
   _renderHeader = () => {
-    const path = this.props.navigation.state.params.doc.path;
-    return (
-      <ResponsiveImageView source={{uri: `asset:/${path}/cover.jpg`}}
-                           render={({getViewProps, getImageProps}) => (
-                             <View {...getViewProps()}>
-                               <Image {...getImageProps()} />
-                             </View>
-                           )}
-      />
-    );
+    if (this.props.doc) {
+      const path = this.props.doc.path;
+      return (
+        <ResponsiveImageView source={{uri: `asset:/${path}/cover.jpg`}}
+                             render={({getViewProps, getImageProps}) => (
+                               <View {...getViewProps()}>
+                                 <Image {...getImageProps()} />
+                               </View>
+                             )}
+        />
+      );
+    }
+    return null;
   };
 
   _renderSeparator = () => (
     <View style={{height: 1, backgroundColor: 'rgba(0, 0, 0, .12)', marginLeft: 16}}/>
   );
 
-  componentDidMount() {
-    const path = this.props.navigation.state.params.doc.path;
-    Api.loadTOC(path).then(toc => this.setState({toc}))
-  }
-
   render() {
     return (
       <View style={styles.container}>
-        <FlatList data={this.state.toc}
+        <FlatList data={this.props.doc ? this.props.doc.sections : []}
                   renderItem={this._renderItem}
                   keyExtractor={item => item.type}
                   ListHeaderComponent={this._renderHeader}
@@ -75,6 +68,17 @@ export default class DocScreen extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  const {params} = AppNavigator.router.getPathAndParamsForState(state.nav);
+  if (params) {
+    const {id} = params;
+    const doc = state.data.docs.find(doc => doc.id === id);
+    return {doc}
+  }
+}
+
+export default connect(mapStateToProps)(DocScreen);
 
 const styles = StyleSheet.create({
   container: {

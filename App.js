@@ -1,49 +1,31 @@
 import React from 'react';
 import thunkMiddleware from 'redux-thunk';
 import {createStore, applyMiddleware} from 'redux';
-import {Provider, connect} from 'react-redux';
+import {Provider} from 'react-redux';
 import dike from './app/redux/reducers';
 import {loadData} from './app/redux/actions';
-import {StackNavigator} from 'react-navigation';
-import HomeScreen from "./app/screens/HomeScreen";
-import DocScreen from "./app/screens/DocScreen";
-import SectionScreen from "./app/screens/SectionScreen";
-import ArticleScreen from "./app/screens/ArticleScreen";
+import AppWithNavigationState from './app/navigators/AppNavigator';
 
-const store = createStore(
-  dike,
-  applyMiddleware(
-    thunkMiddleware
-  )
-);
+class App extends React.Component {
+  store = createStore(
+    dike,
+    applyMiddleware(
+      thunkMiddleware
+    )
+  );
 
-const MyNavigator = StackNavigator({
-  Home: {
-    screen: HomeScreen,
-  },
-  DocDetails: {
-    screen: DocScreen
-  },
-  SectionDetails: {
-    screen: SectionScreen
-  },
-  Article: {
-    screen: ArticleScreen
-  }
-});
-
-class BasicApp extends React.Component {
   componentDidMount() {
-    this.props.dispatch(loadData());
+    this.store.dispatch(loadData());
   }
 
   render() {
-    return (<MyNavigator/>);
+    return (
+      <Provider store={this.store}>
+        <AppWithNavigationState/>
+      </Provider>)
   }
 }
 
-const App = connect()(BasicApp);
-
-export default (props) => (<Provider store={store}><App/></Provider>);
+export default App;
 
 
