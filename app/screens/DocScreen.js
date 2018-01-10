@@ -70,8 +70,8 @@ class DocScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const {params} = AppNavigator.router.getPathAndParamsForState(state.nav);
-  if (params) {
+  const {params, path} = AppNavigator.router.getPathAndParamsForState(state.nav);
+  if (params && path === 'DocDetails') {
     const {id} = params;
     const doc = state.data.docs.find(doc => doc.id === id);
     return {doc}

@@ -74,6 +74,7 @@ class SectionScreen extends React.Component {
       contents.forEach(content => {
         item = SectionScreen._newSection(content.name, content.order, ARTICLE);
         this.data.push(item);
+        if (content.path.startsWith('text/'))
         content.path = `${this.path}/${content.path}`;
         this.articles.push(content);
       });
@@ -103,13 +104,14 @@ class SectionScreen extends React.Component {
 
 
 function mapStateToProps(state) {
-  const {params} = AppNavigator.router.getPathAndParamsForState(state.nav);
-  if (params) {
+  let {params, path} = AppNavigator.router.getPathAndParamsForState(state.nav);
+  if (params && path === 'SectionDetails') {
     const {doc, sectionId} = params;
-    const {path, sections} = state.data.docs.find(el => el.id === doc);
+    let {path, sections} = state.data.docs.find(el => el.id === doc);
     const section = sections.find(el => sectionId === `${el.type}-${el.order}`);
     return {path, section}
   }
+  return {};
 }
 
 export default connect(mapStateToProps)(SectionScreen);
