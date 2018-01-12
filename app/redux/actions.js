@@ -35,26 +35,32 @@ function flattenSection(section, doc) {
 
 export function loadData() {
   return function (dispatch) {
+    // Load all documents info from the file system
     Api.loadDocs()
       .then(docs =>
+        // For each doc, load the table of contents, then add it to the doc data
         Promise.all(docs.map(doc =>
           Api.loadTOC(doc.path).then(toc =>
             new Promise.resolve((({...doc, sections: toc})))
           )
         ))
       ).then(docs => {
+        // create the search index
         const idx = elasticlunr(function () {
           this.addField('text');
           this.setRef('id');
         });
+        // For each doc, load all articles and add them to the index
         docs.forEach(doc => {
           const docName = doc.name;
+          // Extract all articles and load them from the file system
           doc.sections.forEach(section => {
             Promise.all(flattenSection(section, doc)).then(articles => {
               articles.forEach(art => idx.addDoc(art));
             })
           });
         });
+        // execute the action that send the data and the index to the store
         dispatch(importData(docs, idx));
       }
     )

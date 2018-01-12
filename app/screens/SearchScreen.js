@@ -1,49 +1,137 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, TextInput, TouchableNativeFeedback, View} from "react-native";
+import {FlatList, SectionList, StyleSheet, Text, TextInput, TouchableNativeFeedback, View} from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
 
-const SearchHeader = props => (
-  <View style={styles.headerWrapper}>
-    <TouchableNativeFeedback onPress={() => props.navigation.goBack()}>
-      <View style={styles.backArrow}>
-        <Icon name="arrow-back" size={24} color="#000"/>
-      </View>
-    </TouchableNativeFeedback>
-    <TextInput style={styles.headerInput} underlineColorAndroid="transparent" returnKeyType="search"/>
-  </View>
-);
+function string_to_slug(str) {
+  str = str.replace(/^\s+|\s+$/g, ''); // trim
+  str = str.toLowerCase();
 
-SearchHeader.displayName = 'SearchHeader';
-
-class SearchScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {items: [], query: 'Liberté'}
+  // remove accents, swap ñ for n, etc
+  const from = "àáäâèéëêìíïîòóöôùúüûñç·/-,:;";
+  const to = "aaaaeeeeiiiioooouuuunc______";
+  let i = 0, l = from.length;
+  for (; i < l; i++) {
+    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
   }
 
-  componentWillMount() {
-    const result = this.props.index.search(this.state.query)
-    this.setState({items: result});
+  str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+    .replace(/\s+/g, '_') // collapse whitespace and replace by -
+    .replace(/-+/g, '_')
+    .replace(/_+/g, '_'); // collapse dashes
+
+  return str;
+}
+
+function groupByDoc(articles) {
+  return articles.reduce((acc, el) => {
+    const prop = string_to_slug(el.doc);
+    acc[prop] = acc[prop] || {};
+    acc[prop].title = el.doc;
+    acc[prop].data = acc[prop].data || [];
+    acc[prop].data.push(el);
+    return acc;
+  }, {})
+}
+
+function debounce(callback, wait, context = this) {
+  let timeout = null;
+  let callbackArgs = null;
+
+  const later = () => callback.apply(context, callbackArgs);
+
+  return function() {
+    callbackArgs = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
   }
+}
+
+class SearchHeader extends React.Component {
+  _clearInput = () => {
+    this.searchInput.clear();
+  };
 
   render() {
-    const {index} = this.props;
-    const {documentStore} = index;
     return (
-      <View>
-        <FlatList data={this.state.items}
-                  renderItem={({item}) => <Text>{documentStore.getDoc(item.ref).name}</Text>}/>
+      <View style={styles.headerWrapper}>
+        <TouchableNativeFeedback onPress={() => this.props.navigation.goBack()}>
+          <View style={styles.backArrow}>
+            <Icon name="arrow-back" size={24} color="#000"/>
+          </View>
+        </TouchableNativeFeedback>
+        <TextInput  ref={input => this.searchInput = input}
+          autoFocus={true}
+                   style={styles.headerInput} onChangeText={this.props.onChangeText}
+                   underlineColorAndroid="transparent"
+                   returnKeyType="search"/>
+        <TouchableNativeFeedback onPress={this._clearInput}>
+          <View style={styles.backArrow}>
+            <Icon name="close" size={16} color="#000"/>
+          </View>
+        </TouchableNativeFeedback>
       </View>
     );
   }
 }
 
-SearchScreen.navigationOptions = {
-  header: props => <SearchHeader {...props} />
-};
+SearchHeader.displayName = 'SearchHeader';
 
-export default connect(state => ({index: state.data.index}))(SearchScreen);
+class SearchScreen extends React.Component {
+  static navigationOptions = ({navigation}) => {
+    const {params = {}} = navigation.state;
+    return {
+      header: props => <SearchHeader {...props} onChangeText={params.search ? params.search : () => null}/>
+    }
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {items: [], query: 'Liberté'}
+  }
+
+  _search = debounce((q) => {
+      const result = this.props.index.search(q, {expand: true});
+      this.setState({items: result});
+    }, 1000, this);
+
+  componentDidMount() {
+    const {navigation} = this.props;
+    navigation.setParams({search: this._search});
+  }
+
+  _renderItem = ({item}) => (
+    <View style={styles.articleCell}>
+      <Text style={styles.article}>{item.name}</Text>
+    </View>
+  );
+
+  _renderHeader = ({section}) => (
+    <View style={styles.sectionCell}>
+      <Text style={styles.section}>{section.title}</Text>
+    </View>
+  );
+
+  render() {
+    const {index} = this.props;
+    const {documentStore} = index;
+    const data = this.state.items.map(item => documentStore.getDoc(item.ref));
+    const items = Object.values(groupByDoc(data));
+    return (
+      <View>
+        <SectionList sections={items}
+                     renderSectionHeader={this._renderHeader}
+                     renderItem={this._renderItem}
+                     keyExtractor={item => item.id}/>
+      </View>
+    );
+  }
+}
+
+export default connect(state => ({
+    index: state.data.index
+  })
+)(SearchScreen);
 
 const styles = StyleSheet.create({
   headerWrapper: {
@@ -59,7 +147,20 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   headerInput: {
-    borderBottomWidth: 0,
-    flex: 1
+    flex: 1,
+    fontSize: 16
+  },
+  articleCell: {
+    padding: 16
+  },
+  article: {
+    fontSize: 16
+  },
+  sectionCell: {
+    backgroundColor: '#fff',
+    padding: 8
+  },
+  section: {
+    fontWeight: 'bold'
   }
 });
