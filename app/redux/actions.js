@@ -1,5 +1,6 @@
 import Api from '../data/api';
-import elasticlunr from 'elasticlunr';
+// import elasticlunr from 'elasticlunr';
+import Fuse from 'fuse.js'
 
 export const IMPORT_DATA = 'import-data';
 
@@ -46,22 +47,31 @@ export function loadData() {
         ))
       ).then(docs => {
         // create the search index
-        const idx = elasticlunr(function () {
-          this.addField('text');
-          this.setRef('id');
-        });
-        // For each doc, load all articles and add them to the index
-        docs.forEach(doc => {
-          const docName = doc.name;
-          // Extract all articles and load them from the file system
-          doc.sections.forEach(section => {
-            Promise.all(flattenSection(section, doc)).then(articles => {
-              articles.forEach(art => idx.addDoc(art));
-            })
-          });
-        });
-        // execute the action that send the data and the index to the store
-        dispatch(importData(docs, idx));
+        const options = {
+          shouldSort: true,
+          tokenize: true,
+          matchAllTokens: true,
+          includeScore: true,
+          includeMatches: true,
+          threshold: 0.6,
+          location: 0,
+          distance: 100,
+          maxPatternLength: 32,
+          minMatchCharLength: 1,
+          keys: [
+            "text",
+          ]
+        };
+        Promise.all(docs.map(doc =>
+          Promise.all(doc.sections.map(section =>
+            Promise.all(flattenSection(section, doc))
+          )).then(sections => new Promise.resolve(sections.reduce((acc, section) => acc.concat(section))))
+        )).then(docs => new Promise.resolve(docs.reduce((acc, doc) => acc.concat(doc))))
+          .then(articles => {
+          const idx = new Fuse(articles, options);
+          // execute the action that send the data and the index to the store
+          dispatch(importData(docs, idx));
+        })
       }
     )
   }

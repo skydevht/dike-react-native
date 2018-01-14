@@ -1,5 +1,8 @@
 import React from 'react';
-import {FlatList, SectionList, StyleSheet, Text, TextInput, TouchableNativeFeedback, View} from "react-native";
+import {
+  FlatList, SectionList, StyleSheet, Text, TextInput, TouchableNativeFeedback, TouchableWithoutFeedback,
+  View
+} from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
 
@@ -40,7 +43,7 @@ function debounce(callback, wait, context = this) {
 
   const later = () => callback.apply(context, callbackArgs);
 
-  return function() {
+  return function () {
     callbackArgs = arguments;
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
@@ -60,8 +63,8 @@ class SearchHeader extends React.Component {
             <Icon name="arrow-back" size={24} color="#000"/>
           </View>
         </TouchableNativeFeedback>
-        <TextInput  ref={input => this.searchInput = input}
-          autoFocus={true}
+        <TextInput ref={input => this.searchInput = input}
+                   autoFocus={true}
                    style={styles.headerInput} onChangeText={this.props.onChangeText}
                    underlineColorAndroid="transparent"
                    returnKeyType="search"/>
@@ -87,23 +90,32 @@ class SearchScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {items: [], query: 'Liberté'}
+    this.state = {items: []};
+    this.items = [];
   }
 
   _search = debounce((q) => {
-      const result = this.props.index.search(q, {expand: true});
-      this.setState({items: result});
-    }, 1000, this);
+    const result = this.props.index.search(q);
+    this.setState({items: result});
+  }, 1000, this);
+
+  _viewArticles = (articles, current) => {
+    console.log("Curent index", current);
+    const {navigation} = this.props;
+    navigation.navigate('Article', {articles: articles, current, preload: true})
+  };
 
   componentDidMount() {
     const {navigation} = this.props;
     navigation.setParams({search: this._search});
   }
 
-  _renderItem = ({item}) => (
-    <View style={styles.articleCell}>
-      <Text style={styles.article}>{item.name}</Text>
-    </View>
+  _renderItem = ({item, index, section}) => (
+    <TouchableWithoutFeedback onPress={() => this._viewArticles(section.data, index)}>
+      <View style={styles.articleCell}>
+        <Text style={styles.article}>{item.name}</Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 
   _renderHeader = ({section}) => (
@@ -115,11 +127,11 @@ class SearchScreen extends React.Component {
   render() {
     const {index} = this.props;
     const {documentStore} = index;
-    const data = this.state.items.map(item => documentStore.getDoc(item.ref));
-    const items = Object.values(groupByDoc(data));
+    const data = this.state.items.map(item => item.item)
+    this.items = Object.values(groupByDoc(data));
     return (
       <View>
-        <SectionList sections={items}
+        <SectionList sections={this.items}
                      renderSectionHeader={this._renderHeader}
                      renderItem={this._renderItem}
                      keyExtractor={item => item.id}/>
